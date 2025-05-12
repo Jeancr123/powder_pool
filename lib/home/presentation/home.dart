@@ -29,7 +29,7 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UnauthenticatedAppBar(),
+      appBar: AuthAppBar(),
       backgroundColor: Colors.white,
       body: ListView(
         children: [
