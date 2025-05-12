@@ -29,6 +29,8 @@ mixin _$Resort {
   String? get city => throw _privateConstructorUsedError;
   String? get state => throw _privateConstructorUsedError;
   String? get zipCode => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   /// Serializes this Resort to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,6 +55,8 @@ abstract class $ResortCopyWith<$Res> {
     String? city,
     String? state,
     String? zipCode,
+    String? imageUrl,
+    String? description,
   });
 }
 
@@ -79,6 +83,8 @@ class _$ResortCopyWithImpl<$Res, $Val extends Resort>
     Object? city = freezed,
     Object? state = freezed,
     Object? zipCode = freezed,
+    Object? imageUrl = freezed,
+    Object? description = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -122,6 +128,16 @@ class _$ResortCopyWithImpl<$Res, $Val extends Resort>
                     ? _value.zipCode
                     : zipCode // ignore: cast_nullable_to_non_nullable
                         as String?,
+            imageUrl:
+                freezed == imageUrl
+                    ? _value.imageUrl
+                    : imageUrl // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            description:
+                freezed == description
+                    ? _value.description
+                    : description // ignore: cast_nullable_to_non_nullable
+                        as String?,
           )
           as $Val,
     );
@@ -145,6 +161,8 @@ abstract class _$$ResortImplCopyWith<$Res> implements $ResortCopyWith<$Res> {
     String? city,
     String? state,
     String? zipCode,
+    String? imageUrl,
+    String? description,
   });
 }
 
@@ -170,6 +188,8 @@ class __$$ResortImplCopyWithImpl<$Res>
     Object? city = freezed,
     Object? state = freezed,
     Object? zipCode = freezed,
+    Object? imageUrl = freezed,
+    Object? description = freezed,
   }) {
     return _then(
       _$ResortImpl(
@@ -213,6 +233,16 @@ class __$$ResortImplCopyWithImpl<$Res>
                 ? _value.zipCode
                 : zipCode // ignore: cast_nullable_to_non_nullable
                     as String?,
+        imageUrl:
+            freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        description:
+            freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                    as String?,
       ),
     );
   }
@@ -230,6 +260,8 @@ class _$ResortImpl implements _Resort {
     this.city,
     this.state,
     this.zipCode,
+    this.imageUrl,
+    this.description,
   });
 
   factory _$ResortImpl.fromJson(Map<String, dynamic> json) =>
@@ -251,10 +283,14 @@ class _$ResortImpl implements _Resort {
   final String? state;
   @override
   final String? zipCode;
+  @override
+  final String? imageUrl;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'Resort(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, address: $address, city: $city, state: $state, zipCode: $zipCode)';
+    return 'Resort(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, address: $address, city: $city, state: $state, zipCode: $zipCode, imageUrl: $imageUrl, description: $description)';
   }
 
   @override
@@ -271,7 +307,11 @@ class _$ResortImpl implements _Resort {
             (identical(other.address, address) || other.address == address) &&
             (identical(other.city, city) || other.city == city) &&
             (identical(other.state, state) || other.state == state) &&
-            (identical(other.zipCode, zipCode) || other.zipCode == zipCode));
+            (identical(other.zipCode, zipCode) || other.zipCode == zipCode) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -286,6 +326,8 @@ class _$ResortImpl implements _Resort {
     city,
     state,
     zipCode,
+    imageUrl,
+    description,
   );
 
   /// Create a copy of Resort
@@ -312,6 +354,8 @@ abstract class _Resort implements Resort {
     final String? city,
     final String? state,
     final String? zipCode,
+    final String? imageUrl,
+    final String? description,
   }) = _$ResortImpl;
 
   factory _Resort.fromJson(Map<String, dynamic> json) = _$ResortImpl.fromJson;
@@ -332,6 +376,10 @@ abstract class _Resort implements Resort {
   String? get state;
   @override
   String? get zipCode;
+  @override
+  String? get imageUrl;
+  @override
+  String? get description;
 
   /// Create a copy of Resort
   /// with the given fields replaced by the non-null parameter values.

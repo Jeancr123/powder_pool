@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:powder_pool/models/domain/json.dart';
+import 'package:powder_pool/models/domain/user_model.dart';
 import 'package:powder_pool/models/domain/uuid.dart';
 part 'carpool_model.freezed.dart';
 part 'carpool_model.g.dart';
@@ -22,6 +23,7 @@ class Carpool with _$Carpool {
     String? departureTime,
     DateTime? returningDate,
     String? returningTime,
+    User? creator,
   }) = _Carpool;
 
   factory Carpool.fromJson(Json json) => _$CarpoolFromJson(json);

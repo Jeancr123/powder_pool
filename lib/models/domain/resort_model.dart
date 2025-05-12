@@ -15,6 +15,8 @@ class Resort with _$Resort {
     String? city,
     String? state,
     String? zipCode,
+    String? imageUrl,
+    String? description,
   }) = _Resort;
 
   factory Resort.fromJson(Json json) => _$ResortFromJson(json);

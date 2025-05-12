@@ -30,10 +30,13 @@ _$ConversationMessageImpl _$$ConversationMessageImplFromJson(
 Map<String, dynamic> _$$ConversationMessageImplToJson(
   _$ConversationMessageImpl instance,
 ) => <String, dynamic>{
-  'id': instance.id,
-  'createdAt': instance.createdAt?.toIso8601String(),
-  'updatedAt': instance.updatedAt?.toIso8601String(),
-  'conversationId': instance.conversationId,
-  'userId': instance.userId,
-  'messageText': instance.messageText,
+  if (instance.id?.toJson() case final value?) 'id': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
+  if (instance.conversationId?.toJson() case final value?)
+    'conversationId': value,
+  if (instance.userId?.toJson() case final value?) 'userId': value,
+  if (instance.messageText case final value?) 'messageText': value,
 };

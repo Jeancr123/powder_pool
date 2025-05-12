@@ -25,8 +25,10 @@ _$ConversationImpl _$$ConversationImplFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$$ConversationImplToJson(_$ConversationImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'updatedAt': instance.updatedAt?.toIso8601String(),
-      'carpoolId': instance.carpoolId,
+      if (instance.id?.toJson() case final value?) 'id': value,
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'createdAt': value,
+      if (instance.updatedAt?.toIso8601String() case final value?)
+        'updatedAt': value,
+      if (instance.carpoolId?.toJson() case final value?) 'carpoolId': value,
     };
