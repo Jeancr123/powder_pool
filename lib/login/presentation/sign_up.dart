@@ -1,19 +1,22 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:powder_pool/authentication/application/authentication_provider.dart';
 import 'package:powder_pool/login/presentation/animated_button.dart';
 import 'package:powder_pool/login/presentation/customized_input.dart';
 import 'package:powder_pool/models/domain/user_model.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 
-class SignUp extends StatefulWidget {
+class SignUp extends ConsumerStatefulWidget {
   const SignUp({super.key});
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  ConsumerState<SignUp> createState() => _SignUpState();
 }
 
-class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
+class _SignUpState extends ConsumerState<SignUp>
+    with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? _animacaoBlur;
   Animation<double>? _animacaoFade;
@@ -24,10 +27,19 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _zipCodeController = TextEditingController();
   final TextEditingController _aboutYouController = TextEditingController();
+  bool submitted = false;
 
   @override
   void initState() {
     super.initState();
+
+    _firstNameController.text = '';
+    _lastNameController.text = '';
+    _emailController.text = '';
+    _passwordController.text = '';
+    _zipCodeController.text = '';
+    _aboutYouController.text = '';
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1000),
@@ -150,6 +162,13 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                                   icon: Icon(Icons.location_on_outlined),
                                   controller: _zipCodeController,
                                 ),
+                                SizedBox(height: 10),
+                                CustomizedInput(
+                                  hint: 'Tell others about you',
+                                  obscure: false,
+                                  icon: Icon(Icons.info_outline),
+                                  controller: _aboutYouController,
+                                ),
                               ],
                             ),
                           );
@@ -160,23 +179,27 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                         controller: _controller!,
                         label: 'Sign Up',
                         onTap: () async {
-                          //                           {
-                          //   "firstName": "John",
-                          //   "lastName": "Doe",
-                          //   "email": "john.doe5@gmail.com",
-                          //   "password": "password123",
-                          //   "zipCode": "12345",
-                          //   "aboutYou": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-                          // }
+                          setState(() {
+                            submitted = true;
+                          });
                           User user = User(
-                            firstName: "",
-                            lastName: "Doe",
-                            email: "",
-                            password: "password123",
-                            zipCode: "12345",
-                            aboutYou:
-                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                            firstName: _firstNameController.text,
+                            lastName: _lastNameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                            zipCode: _zipCodeController.text,
+                            aboutYou: _aboutYouController.text,
                           );
+
+                          await ref
+                              .read(authenticationProvider.notifier)
+                              .signUp(user);
+                          setState(() {
+                            submitted = false;
+                          });
+                          if (context.mounted) {
+                            context.goNamed(Routes.resorts.name);
+                          }
                         },
                       ),
                       const SizedBox(height: 10),
