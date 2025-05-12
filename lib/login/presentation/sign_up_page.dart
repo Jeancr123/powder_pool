@@ -7,6 +7,6 @@ class SignUpPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: UnauthenticatedAppBar(), body: SignUp());
+    return Scaffold(appBar: AuthAppBar(), body: SignUp());
   }
 }

@@ -7,7 +7,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: UnauthenticatedAppBar(), body: Login());
+    return Scaffold(appBar: AuthAppBar(), body: Login());
   }
 
   void _onNavItemTap(String route) {

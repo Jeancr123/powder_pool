@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:powder_pool/login/presentation/animated_button.dart';
 import 'package:powder_pool/login/presentation/customized_input.dart';
+import 'package:powder_pool/models/domain/user_model.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 
 class SignUp extends StatefulWidget {
@@ -17,6 +18,12 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
   Animation<double>? _animacaoBlur;
   Animation<double>? _animacaoFade;
   Animation<double>? _animacaoSize;
+  final TextEditingController _firstNameController = TextEditingController();
+  final TextEditingController _lastNameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _zipCodeController = TextEditingController();
+  final TextEditingController _aboutYouController = TextEditingController();
 
   @override
   void initState() {
@@ -108,35 +115,40 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             child: Column(
-                              children: const [
+                              children: [
                                 CustomizedInput(
                                   hint: 'First Name',
                                   obscure: false,
                                   icon: Icon(Icons.person_outline),
+                                  controller: _firstNameController,
                                 ),
                                 SizedBox(height: 10),
                                 CustomizedInput(
                                   hint: 'Last Name',
                                   obscure: false,
                                   icon: Icon(Icons.person_outline),
+                                  controller: _lastNameController,
                                 ),
                                 SizedBox(height: 10),
                                 CustomizedInput(
                                   hint: 'Email',
                                   obscure: false,
                                   icon: Icon(Icons.email_outlined),
+                                  controller: _emailController,
                                 ),
                                 SizedBox(height: 10),
                                 CustomizedInput(
                                   hint: 'Password',
                                   obscure: true,
                                   icon: Icon(Icons.lock_outline),
+                                  controller: _passwordController,
                                 ),
                                 SizedBox(height: 10),
                                 CustomizedInput(
                                   hint: 'Zip Code',
                                   obscure: false,
                                   icon: Icon(Icons.location_on_outlined),
+                                  controller: _zipCodeController,
                                 ),
                               ],
                             ),
@@ -147,6 +159,25 @@ class _SignUpState extends State<SignUp> with SingleTickerProviderStateMixin {
                       AnimatedButton(
                         controller: _controller!,
                         label: 'Sign Up',
+                        onTap: () async {
+                          //                           {
+                          //   "firstName": "John",
+                          //   "lastName": "Doe",
+                          //   "email": "john.doe5@gmail.com",
+                          //   "password": "password123",
+                          //   "zipCode": "12345",
+                          //   "aboutYou": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                          // }
+                          User user = User(
+                            firstName: "",
+                            lastName: "Doe",
+                            email: "",
+                            password: "password123",
+                            zipCode: "12345",
+                            aboutYou:
+                                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                          );
+                        },
                       ),
                       const SizedBox(height: 10),
                       FadeTransition(

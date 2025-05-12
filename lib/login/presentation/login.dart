@@ -1,22 +1,28 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:powder_pool/authentication/application/authentication_provider.dart';
 import 'package:powder_pool/login/presentation/animated_button.dart';
 import 'package:powder_pool/login/presentation/customized_input.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 
-class Login extends StatefulWidget {
+class Login extends ConsumerStatefulWidget {
   const Login({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  ConsumerState<Login> createState() => _LoginState();
 }
 
-class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
+class _LoginState extends ConsumerState<Login>
+    with SingleTickerProviderStateMixin {
   AnimationController? _controller;
   Animation<double>? _animacaoBlur;
   Animation<double>? _animacaoFade;
   Animation<double>? _animacaoSize;
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -104,16 +110,18 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                               ],
                             ),
                             child: Column(
-                              children: const [
+                              children: [
                                 CustomizedInput(
                                   hint: 'Email',
                                   obscure: false,
+                                  controller: _emailController,
                                   icon: Icon(Icons.email_outlined),
                                 ),
                                 SizedBox(height: 10),
                                 CustomizedInput(
                                   hint: 'Password',
                                   obscure: true,
+                                  controller: _passwordController,
                                   icon: Icon(Icons.lock_outline),
                                 ),
                               ],
@@ -122,7 +130,18 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
                         },
                       ),
                       const SizedBox(height: 20),
-                      AnimatedButton(controller: _controller!, label: 'Login'),
+                      AnimatedButton(
+                        controller: _controller!,
+                        label: 'Login',
+                        onTap: () async {
+                          await ref
+                              .read(authenticationProvider.notifier)
+                              .login(
+                                _emailController.text.toLowerCase(),
+                                _passwordController.text,
+                              );
+                        },
+                      ),
                       const SizedBox(height: 10),
                       FadeTransition(
                         opacity: _animacaoFade!,
