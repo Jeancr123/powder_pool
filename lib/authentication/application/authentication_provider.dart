@@ -1,5 +1,6 @@
 import 'package:powder_pool/api_client/application/api_client_provider.dart';
 import 'package:powder_pool/api_client/data/api_client.dart';
+import 'package:powder_pool/models/domain/user_model.dart';
 import 'package:riverpod/riverpod.dart';
 
 final authenticationProvider =
@@ -15,8 +16,13 @@ class AuthenticationState extends StateNotifier<AuthenticationStatus> {
   final ApiClient apClient;
 
   Future<void> login(email, password) async {
-    await apClient.login(email, password);
-    state = AuthenticationStatus.authenticated;
+    try {
+      state = AuthenticationStatus.unauthenticated;
+      await apClient.login(email, password);
+      state = AuthenticationStatus.authenticated;
+    } catch (e) {
+      super.state = AuthenticationStatus.error;
+    }
   }
 
   Future<void> logOut() async {
@@ -24,10 +30,15 @@ class AuthenticationState extends StateNotifier<AuthenticationStatus> {
     state = AuthenticationStatus.unauthenticated;
   }
 
-  // void signUp(User user) async {
-  //   await apClient.signUp(user);
-  //   state = AuthenticationStatus.authenticated;
-  // }
+  Future<void> signUp(User user) async {
+    await apClient.signUp(user);
+    state = AuthenticationStatus.authenticated;
+  }
 }
 
-enum AuthenticationStatus { authenticated, unauthenticated }
+enum AuthenticationStatus {
+  authenticating,
+  authenticated,
+  unauthenticated,
+  error,
+}
