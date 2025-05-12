@@ -1,41 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:powder_pool/app_bars/presentation/unauthenticated.dart';
+import 'package:powder_pool/loading/presentation/loading_welcome.dart';
+import 'package:powder_pool/models/domain/resort_model.dart';
+import 'package:powder_pool/resorts/application/resorts_provider.dart';
 import 'package:powder_pool/resorts/presentation/card_button.dart';
 
-class ResortsPage extends StatelessWidget {
-  ResortsPage({super.key});
+class ResortsPage extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    var resorts = ref.watch(resortsProvider);
+    return resorts.when(
+      data: (resorts) {
+        return ResortsPageLoaded(resorts: resorts);
+      },
+      error: (err, stack) => Text('Something went wrong'),
+      loading: () => LoadingWelcome(),
+    );
+  }
+}
 
-  final List<Map<String, String>> resorts = [
-    {
-      "name": "Deer Valley Resort",
-      "image": "assets/images/resorts/deer_valley.png",
-      "description":
-          "Deer Valley Resort is a ski resort located in Park City, Utah. It is known for its upscale amenities and exceptional customer service.",
-      "city": "Park City",
-      "state": "Utah",
-    },
-    {
-      "name": "Park City Mountain Resort",
-      "image": "assets/images/resorts/deer_valley.png",
-      "description":
-          "Park City Mountain Resort is one of the largest ski resorts in the United States, offering a wide range of terrain and activities.",
-      "city": "Park City",
-      "state": "Utah",
-    },
-    {
-      "name": "Snowbird",
-      "image": "assets/images/resorts/deer_valley.png",
-      "description":
-          "Snowbird is a ski resort located in Little Cottonwood Canyon, Utah. It is known for its steep terrain and deep powder.",
-      "city": "Park City",
-      "state": "Utah",
-    },
-  ];
+class ResortsPageLoaded extends StatelessWidget {
+  ResortsPageLoaded({super.key, required this.resorts});
+
+  final List<Resort> resorts;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: UnauthenticatedAppBar(),
+      appBar: AuthAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
         child: LayoutBuilder(
@@ -59,12 +52,14 @@ class ResortsPage extends StatelessWidget {
 }
 
 class ResortCard extends StatelessWidget {
-  final Map<String, String> resort;
+  final Resort resort;
 
   const ResortCard({required this.resort, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final imagePath = "assets/images/resorts/deer_valley.png";
+
     return IntrinsicHeight(
       // 🔑 keeps Card only as tall as needed
       child: Card(
@@ -80,7 +75,7 @@ class ResortCard extends StatelessWidget {
                 top: Radius.circular(14),
               ),
               child: Image.asset(
-                resort["image"]!,
+                imagePath,
                 height: 100,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -93,7 +88,7 @@ class ResortCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min, // 🔑 also on inner column
                 children: [
                   Text(
-                    resort["name"]!,
+                    resort.name ?? '',
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -101,12 +96,12 @@ class ResortCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    "${resort["city"]}, ${resort["state"]}",
+                    "${resort.city ?? ''}, ${resort.state ?? ''}",
                     style: const TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    resort["description"]!,
+                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ',
                     style: const TextStyle(fontSize: 14, height: 1.3),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -118,9 +113,7 @@ class ResortCard extends StatelessWidget {
                       onTap: () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                            content: Text(
-                              "Scheduling carpool to ${resort["name"]}",
-                            ),
+                            content: Text("Schedul carpool to ${resort.name}"),
                           ),
                         );
                       },
