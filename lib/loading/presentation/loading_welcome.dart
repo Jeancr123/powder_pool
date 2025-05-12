@@ -16,7 +16,7 @@ class LoadingWelcome extends ConsumerWidget {
         return Scaffold(body: _page(context));
       },
       theme: appTheme,
-      title: 'Co-Dx PCR Device',
+      title: 'PowderPool',
     );
   }
 
@@ -30,10 +30,7 @@ class LoadingWelcome extends ConsumerWidget {
         children: [
           Spacer(),
           SizedBox(
-            child: Image.asset(
-              'assets/images/logo-full.png',
-              height: 100,
-            ),
+            child: Image.asset('assets/images/background.png', height: 100),
           ),
           Spacer(),
           Container(
@@ -42,8 +39,9 @@ class LoadingWelcome extends ConsumerWidget {
             width: 80.0,
             child: CircularProgressIndicator(
               strokeWidth: 12,
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+              valueColor: AlwaysStoppedAnimation<Color>(
+                Theme.of(context).primaryColor,
+              ),
               backgroundColor: Colors.grey.shade200,
             ),
           ),
