@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AnimatedButton extends StatelessWidget {
   final String label;
-  final VoidCallback? onTap;
+  final onTap;
 
   AnimationController controller;
   Animation<double> largura;
@@ -30,7 +30,7 @@ class AnimatedButton extends StatelessWidget {
 
   Widget _buildAnimation(BuildContext context, Widget? widget) {
     return InkWell(
-      onTap: onTap ?? () {},
+      onTap: () {onTap!();},
       child: Container(
         width: largura.value,
         height: altura.value,
