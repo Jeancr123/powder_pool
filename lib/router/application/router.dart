@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:powder_pool/carpool_by_resort/presentation/carpool_posts.dart';
+import 'package:powder_pool/carpool_conversation/presentation/conversation.dart';
 import 'package:powder_pool/home/presentation/home.dart';
-import 'package:powder_pool/login/presentation/app_shell.dart';
 import 'package:powder_pool/login/presentation/login_page.dart';
 import 'package:powder_pool/login/presentation/sign_up_page.dart';
+import 'package:powder_pool/models/domain/conversation_model.dart';
+import 'package:powder_pool/models/domain/uuid.dart';
 import 'package:powder_pool/resorts/presentation/resorts_list.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 import 'package:powder_pool/router/routes.dart';
@@ -32,21 +34,34 @@ final GoRouter router = GoRouter(
       path: '/signUp',
       builder: (context, state) => SignUpPage(),
     ),
+    GoRoute(
+      name: Routes.resorts.name,
+      path: '/resorts',
+      builder: (context, state) => ResortsPage(),
+    ),
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
-      builder:
-          (context, state, child) => AuthRoute(child: AppShell(child: child)),
+      builder: (context, state, child) => AuthRoute(child: child),
       routes: [
         GoRoute(
-          name: Routes.resorts.name,
-          path: '/resorts',
-          builder: (context, state) => ResortsPage(),
+          name: Routes.carpoolsByResort.name,
+          path: '/carpoolByResort/:resortId',
+          builder: (context, state) {
+            final resortIdString = state.pathParameters['resortId']!;
+            final resortId = Uuid(resortIdString);
+            return CarpoolsByResortPage(resortId: resortId);
+          },
         ),
         GoRoute(
-          name: Routes.carpoolByResort.name,
-          path: '/carpoolByResort',
-          builder: (context, state) => CarpoolsByResortPage(),
+          name: Routes.carpoolConversation.name,
+          path: '/carpoolConversation/:carpoolId',
+          builder: (context, state) {
+            final carpoolIdString = state.pathParameters['carpoolId']!;
+            final carpoolId = Uuid(carpoolIdString);
+            return CarpoolConversation(resortId: carpoolId);
+          },
         ),
+
         // GoRoute(
         //   name: rtNames.consumables,
         //   path: '/consumables',
