@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:powder_pool/app_bars/presentation/unauthenticated.dart';
+import 'package:powder_pool/app_bars/presentation/auth_app_bar.dart';
 import 'package:powder_pool/login/presentation/animated_button.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 
