@@ -57,6 +57,17 @@ class _LoginState extends ConsumerState<Login>
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authenticationProvider, (previous, next) {
+      if (next == AuthenticationStatus.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Invalid credentials. Try again'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -134,12 +145,24 @@ class _LoginState extends ConsumerState<Login>
                         controller: _controller!,
                         label: 'Login',
                         onTap: () async {
-                          await ref
-                              .read(authenticationProvider.notifier)
-                              .login(
-                                _emailController.text.toLowerCase(),
-                                _passwordController.text,
-                              );
+                          try {
+                            await ref
+                                .read(authenticationProvider.notifier)
+                                .login(
+                                  _emailController.text.toLowerCase(),
+                                  _passwordController.text,
+                                );
+                            if (context.mounted) {
+                              if (ref.read(authenticationProvider) ==
+                                  AuthenticationStatus.authenticated) {
+                                context.goNamed(Routes.resorts.name);
+                              }
+                            }
+                          } catch (_) {
+                            setState(() {
+                              _passwordController.text = '';
+                            });
+                          }
                         },
                       ),
                       const SizedBox(height: 10),
