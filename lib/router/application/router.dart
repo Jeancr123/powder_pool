@@ -17,7 +17,7 @@ final GoRouter router = GoRouter(
   initialLocation:
       '/', // Set initialLocation to '/login' to show login page by default if not authenticated
   routes: [
-        GoRoute(
+    GoRoute(
       name: Routes.home.name,
       path: '/',
       builder: (context, state) => HomePage(),
@@ -32,36 +32,30 @@ final GoRouter router = GoRouter(
       path: '/signUp',
       builder: (context, state) => SignUpPage(),
     ),
-    GoRoute(
-      name: Routes.resorts.name,
-      path: '/resorts',
-      builder: (context, state) => ResortsPage(),
+    ShellRoute(
+      navigatorKey: _shellNavigatorKey,
+      builder:
+          (context, state, child) => AuthRoute(child: AppShell(child: child)),
+      routes: [
+        GoRoute(
+          name: Routes.resorts.name,
+          path: '/resorts',
+          builder: (context, state) => ResortsPage(),
+        ),
+        GoRoute(
+          name: Routes.carpoolByResort.name,
+          path: '/carpoolByResort',
+          builder: (context, state) => CarpoolsByResortPage(),
+        ),
+        // GoRoute(
+        //   name: rtNames.consumables,
+        //   path: '/consumables',
+        //   parentNavigatorKey: _shellNavigatorKey,
+        //   builder: (context, state) {
+        //     return ConsumablesPage();
+        //   },
+        // ),
+      ],
     ),
-    GoRoute(
-      name: Routes.carpoolByResort.name,
-      path: '/carpoolByResort',
-      builder: (context, state) => CarpoolsByResortPage(),
-    ),
-    // ShellRoute(
-    //   navigatorKey: _shellNavigatorKey,
-    //   builder:
-    //       (context, state, child) => AuthRoute(child: AppShell(child: child)),
-    //   routes: [
-    //     GoRoute(
-    //       name: Routes.home.name,
-    //       path: '/',
-    //       parentNavigatorKey: _shellNavigatorKey,
-    //       builder: (context, state) => HomePage(),
-    //     ),
-    //     // GoRoute(
-    //     //   name: rtNames.consumables,
-    //     //   path: '/consumables',
-    //     //   parentNavigatorKey: _shellNavigatorKey,
-    //     //   builder: (context, state) {
-    //     //     return ConsumablesPage();
-    //     //   },
-    //     // ),
-    //   ],
-    // ),
   ],
 );
