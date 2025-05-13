@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:powder_pool/carpool_by_resort/presentation/carpool_posts.dart';
+import 'package:powder_pool/carpool_by_resort/presentation/carpools_page.dart';
 import 'package:powder_pool/carpool_conversation/presentation/conversation.dart';
 import 'package:powder_pool/home/presentation/home.dart';
 import 'package:powder_pool/login/presentation/login_page.dart';
 import 'package:powder_pool/login/presentation/sign_up_page.dart';
-import 'package:powder_pool/models/domain/conversation_model.dart';
+import 'package:powder_pool/models/domain/resort_model.dart';
 import 'package:powder_pool/models/domain/uuid.dart';
 import 'package:powder_pool/resorts/presentation/resorts_list.dart';
 import 'package:powder_pool/router/domain/routes.dart';
@@ -47,9 +47,10 @@ final GoRouter router = GoRouter(
           name: Routes.carpoolsByResort.name,
           path: '/carpoolByResort/:resortId',
           builder: (context, state) {
+            final resort = state.extra as Resort?;
             final resortIdString = state.pathParameters['resortId']!;
             final resortId = Uuid(resortIdString);
-            return CarpoolsByResortPage(resortId: resortId);
+            return CarpoolsByResortPage(resort: resort, resortId: resortId);
           },
         ),
         GoRoute(
@@ -58,7 +59,7 @@ final GoRouter router = GoRouter(
           builder: (context, state) {
             final carpoolIdString = state.pathParameters['carpoolId']!;
             final carpoolId = Uuid(carpoolIdString);
-            return CarpoolConversation(resortId: carpoolId);
+            return CarpoolConversation(carpoolId: carpoolId);
           },
         ),
 
