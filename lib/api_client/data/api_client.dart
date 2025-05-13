@@ -7,7 +7,7 @@ import 'package:powder_pool/models/domain/user_model.dart';
 class ApiClient {
   static const _tokenKey = 'jwt_token';
   String token = '';
-  static const String baseUrl = 'http://3.139.87.197:8000';
+  static const String baseUrl = 'https://powderpool.com';
 
   ApiClient();
 
