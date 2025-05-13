@@ -3,11 +3,13 @@ import 'package:http/http.dart' as http;
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:powder_pool/models/domain/json.dart';
+import 'package:powder_pool/models/domain/user_model.dart';
 
 class ApiClient {
   final _storage = const FlutterSecureStorage();
   static const _tokenKey = 'jwt_token';
-  static const String baseUrl = 'http://3.12.41.167:8000';
+  String token = '';
+  static const String baseUrl = 'http://3.148.231.55:8000';
 
   ApiClient();
 
@@ -21,25 +23,32 @@ class ApiClient {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final token = data['token'];
+      this.token = token;
       // await _storage.write(key: _tokenKey, value: token);
     } else {
       throw Exception('Login failed: ${response.body}');
     }
   }
 
-  // Future<void> signUp(User user) async {
-  //   final response = await http.post(
-  //     Uri.parse('$baseUrl/signup'),
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: json.encode(user.toJson()),
-  //   );
+  Future<void> signUp(User user) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/signup'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode(user.toJson()),
+    );
 
-  //   if (response.statusCode != 201) {
-  //     throw Exception('Sign up failed: ${response.body}');
-  //   }
-  // }
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final data = json.decode(response.body);
+      final token = data['token'];
+      this.token = token;
+      // await _storage.write(key: _tokenKey, value: token);
+    } else {
+      throw Exception('Sign up failed: ${response.body}');
+    }
+  }
 
   Future<String?> _getValidToken() async {
+    return this.token;
     final token = await _storage.read(key: _tokenKey);
     if (token != null && !JwtDecoder.isExpired(token)) {
       return token;
