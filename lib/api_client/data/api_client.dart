@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:powder_pool/models/domain/json.dart';
 import 'package:powder_pool/models/domain/user_model.dart';
 
 class ApiClient {
-  final _storage = const FlutterSecureStorage();
   static const _tokenKey = 'jwt_token';
   String token = '';
   static const String baseUrl = 'http://3.139.87.197:8000';
@@ -49,12 +47,12 @@ class ApiClient {
 
   Future<String?> _getValidToken() async {
     return this.token;
-    final token = await _storage.read(key: _tokenKey);
-    if (token != null && !JwtDecoder.isExpired(token)) {
-      return token;
-    }
-    // Optionally, implement refresh token logic here.
-    return null;
+    // final token = await _storage.read(key: _tokenKey);
+    // if (token != null && !JwtDecoder.isExpired(token)) {
+    //   return token;
+    // }
+    // // Optionally, implement refresh token logic here.
+    // return null;
   }
 
   Future<Json> authenticatedGet(String endpoint) async {
@@ -95,7 +93,7 @@ class ApiClient {
   }
 
   Future<bool> isAuthenticated() async {
-    final token = await _storage.read(key: _tokenKey);
+    // final token = await _storage.read(key: _tokenKey);
     return token != null && !JwtDecoder.isExpired(token);
   }
 }
