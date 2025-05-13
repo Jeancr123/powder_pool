@@ -30,7 +30,9 @@ class AnimatedButton extends StatelessWidget {
 
   Widget _buildAnimation(BuildContext context, Widget? widget) {
     return InkWell(
-      onTap: () {onTap!();},
+      onTap: () {
+        onTap!();
+      },
       child: Container(
         width: largura.value,
         height: altura.value,
@@ -38,8 +40,8 @@ class AnimatedButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius.value),
           gradient: LinearGradient(
             colors: [
-              Colors.cyan.shade400, // cyna with shade 500
-              Colors.cyan.shade600, // cyna with shade 600
+              Color.fromARGB(255, 19, 118, 125),
+              Color.fromARGB(255, 17, 113, 119),
             ],
           ),
         ),

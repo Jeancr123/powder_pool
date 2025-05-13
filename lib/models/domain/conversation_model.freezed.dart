@@ -25,6 +25,7 @@ mixin _$Conversation {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   Uuid? get carpoolId => throw _privateConstructorUsedError;
+  Carpool? get carpool => throw _privateConstructorUsedError;
 
   /// Serializes this Conversation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -48,7 +49,10 @@ abstract class $ConversationCopyWith<$Res> {
     DateTime? createdAt,
     DateTime? updatedAt,
     Uuid? carpoolId,
+    Carpool? carpool,
   });
+
+  $CarpoolCopyWith<$Res>? get carpool;
 }
 
 /// @nodoc
@@ -70,6 +74,7 @@ class _$ConversationCopyWithImpl<$Res, $Val extends Conversation>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? carpoolId = freezed,
+    Object? carpool = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -93,9 +98,28 @@ class _$ConversationCopyWithImpl<$Res, $Val extends Conversation>
                     ? _value.carpoolId
                     : carpoolId // ignore: cast_nullable_to_non_nullable
                         as Uuid?,
+            carpool:
+                freezed == carpool
+                    ? _value.carpool
+                    : carpool // ignore: cast_nullable_to_non_nullable
+                        as Carpool?,
           )
           as $Val,
     );
+  }
+
+  /// Create a copy of Conversation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CarpoolCopyWith<$Res>? get carpool {
+    if (_value.carpool == null) {
+      return null;
+    }
+
+    return $CarpoolCopyWith<$Res>(_value.carpool!, (value) {
+      return _then(_value.copyWith(carpool: value) as $Val);
+    });
   }
 }
 
@@ -113,7 +137,11 @@ abstract class _$$ConversationImplCopyWith<$Res>
     DateTime? createdAt,
     DateTime? updatedAt,
     Uuid? carpoolId,
+    Carpool? carpool,
   });
+
+  @override
+  $CarpoolCopyWith<$Res>? get carpool;
 }
 
 /// @nodoc
@@ -134,6 +162,7 @@ class __$$ConversationImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
     Object? carpoolId = freezed,
+    Object? carpool = freezed,
   }) {
     return _then(
       _$ConversationImpl(
@@ -157,6 +186,11 @@ class __$$ConversationImplCopyWithImpl<$Res>
                 ? _value.carpoolId
                 : carpoolId // ignore: cast_nullable_to_non_nullable
                     as Uuid?,
+        carpool:
+            freezed == carpool
+                ? _value.carpool
+                : carpool // ignore: cast_nullable_to_non_nullable
+                    as Carpool?,
       ),
     );
   }
@@ -170,6 +204,7 @@ class _$ConversationImpl implements _Conversation {
     this.createdAt,
     this.updatedAt,
     this.carpoolId,
+    this.carpool,
   });
 
   factory _$ConversationImpl.fromJson(Map<String, dynamic> json) =>
@@ -183,10 +218,12 @@ class _$ConversationImpl implements _Conversation {
   final DateTime? updatedAt;
   @override
   final Uuid? carpoolId;
+  @override
+  final Carpool? carpool;
 
   @override
   String toString() {
-    return 'Conversation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, carpoolId: $carpoolId)';
+    return 'Conversation(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, carpoolId: $carpoolId, carpool: $carpool)';
   }
 
   @override
@@ -200,13 +237,14 @@ class _$ConversationImpl implements _Conversation {
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
             (identical(other.carpoolId, carpoolId) ||
-                other.carpoolId == carpoolId));
+                other.carpoolId == carpoolId) &&
+            (identical(other.carpool, carpool) || other.carpool == carpool));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, id, createdAt, updatedAt, carpoolId);
+      Object.hash(runtimeType, id, createdAt, updatedAt, carpoolId, carpool);
 
   /// Create a copy of Conversation
   /// with the given fields replaced by the non-null parameter values.
@@ -228,6 +266,7 @@ abstract class _Conversation implements Conversation {
     final DateTime? createdAt,
     final DateTime? updatedAt,
     final Uuid? carpoolId,
+    final Carpool? carpool,
   }) = _$ConversationImpl;
 
   factory _Conversation.fromJson(Map<String, dynamic> json) =
@@ -241,6 +280,8 @@ abstract class _Conversation implements Conversation {
   DateTime? get updatedAt;
   @override
   Uuid? get carpoolId;
+  @override
+  Carpool? get carpool;
 
   /// Create a copy of Conversation
   /// with the given fields replaced by the non-null parameter values.

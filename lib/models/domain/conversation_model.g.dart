@@ -21,6 +21,10 @@ _$ConversationImpl _$$ConversationImplFromJson(Map<String, dynamic> json) =>
           json['carpoolId'] == null
               ? null
               : Uuid.fromJson(json['carpoolId'] as String),
+      carpool:
+          json['carpool'] == null
+              ? null
+              : Carpool.fromJson(json['carpool'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$ConversationImplToJson(_$ConversationImpl instance) =>
@@ -31,4 +35,5 @@ Map<String, dynamic> _$$ConversationImplToJson(_$ConversationImpl instance) =>
       if (instance.updatedAt?.toIso8601String() case final value?)
         'updatedAt': value,
       if (instance.carpoolId?.toJson() case final value?) 'carpoolId': value,
+      if (instance.carpool?.toJson() case final value?) 'carpool': value,
     };

@@ -7,12 +7,38 @@ import 'package:powder_pool/carpool_by_resort/application/carpools_by_resort_pro
 import 'package:powder_pool/loading/presentation/loading_welcome.dart';
 import 'package:powder_pool/models/carpool_model.dart';
 import 'package:powder_pool/models/domain/resort_model.dart';
+import 'package:powder_pool/models/domain/uuid.dart';
+import 'package:powder_pool/resorts/application/resorts_provider.dart';
 import 'package:powder_pool/router/domain/routes.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class CarpoolsByResortPage extends ConsumerWidget {
+  final Resort? resort;
+  final Uuid? resortId;
+  const CarpoolsByResortPage({super.key, required this.resort, this.resortId});
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (resort == null) {
+      var resort = ref.watch(resortByIdProvider(resortId!));
+      return resort.when(
+        data: (resort) {
+          return ResortLoaded(resort: resort);
+        },
+        error: (error, stackTrace) {
+          return Center(child: Text('Error: $error'));
+        },
+        loading: () => LoadingWelcome(),
+      );
+    } else {
+      return ResortLoaded(resort: resort!);
+    }
+  }
+}
+
+class ResortLoaded extends ConsumerWidget {
+  const ResortLoaded({super.key, required this.resort});
   final Resort resort;
-  const CarpoolsByResortPage({super.key, required this.resort});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var carpoolPosts = ref.watch(carpoolsByResortId(resort.id!));

@@ -37,6 +37,8 @@ mixin _$Carpool {
   DateTime? get returningDate => throw _privateConstructorUsedError;
   String? get returningTime => throw _privateConstructorUsedError;
   User? get creator => throw _privateConstructorUsedError;
+  Resort? get resort => throw _privateConstructorUsedError;
+  Conversation? get conversation => throw _privateConstructorUsedError;
 
   /// Serializes this Carpool to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -69,9 +71,13 @@ abstract class $CarpoolCopyWith<$Res> {
     DateTime? returningDate,
     String? returningTime,
     User? creator,
+    Resort? resort,
+    Conversation? conversation,
   });
 
   $UserCopyWith<$Res>? get creator;
+  $ResortCopyWith<$Res>? get resort;
+  $ConversationCopyWith<$Res>? get conversation;
 }
 
 /// @nodoc
@@ -105,6 +111,8 @@ class _$CarpoolCopyWithImpl<$Res, $Val extends Carpool>
     Object? returningDate = freezed,
     Object? returningTime = freezed,
     Object? creator = freezed,
+    Object? resort = freezed,
+    Object? conversation = freezed,
   }) {
     return _then(
       _value.copyWith(
@@ -188,6 +196,16 @@ class _$CarpoolCopyWithImpl<$Res, $Val extends Carpool>
                     ? _value.creator
                     : creator // ignore: cast_nullable_to_non_nullable
                         as User?,
+            resort:
+                freezed == resort
+                    ? _value.resort
+                    : resort // ignore: cast_nullable_to_non_nullable
+                        as Resort?,
+            conversation:
+                freezed == conversation
+                    ? _value.conversation
+                    : conversation // ignore: cast_nullable_to_non_nullable
+                        as Conversation?,
           )
           as $Val,
     );
@@ -204,6 +222,34 @@ class _$CarpoolCopyWithImpl<$Res, $Val extends Carpool>
 
     return $UserCopyWith<$Res>(_value.creator!, (value) {
       return _then(_value.copyWith(creator: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Carpool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ResortCopyWith<$Res>? get resort {
+    if (_value.resort == null) {
+      return null;
+    }
+
+    return $ResortCopyWith<$Res>(_value.resort!, (value) {
+      return _then(_value.copyWith(resort: value) as $Val);
+    });
+  }
+
+  /// Create a copy of Carpool
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $ConversationCopyWith<$Res>? get conversation {
+    if (_value.conversation == null) {
+      return null;
+    }
+
+    return $ConversationCopyWith<$Res>(_value.conversation!, (value) {
+      return _then(_value.copyWith(conversation: value) as $Val);
     });
   }
 }
@@ -233,10 +279,16 @@ abstract class _$$CarpoolImplCopyWith<$Res> implements $CarpoolCopyWith<$Res> {
     DateTime? returningDate,
     String? returningTime,
     User? creator,
+    Resort? resort,
+    Conversation? conversation,
   });
 
   @override
   $UserCopyWith<$Res>? get creator;
+  @override
+  $ResortCopyWith<$Res>? get resort;
+  @override
+  $ConversationCopyWith<$Res>? get conversation;
 }
 
 /// @nodoc
@@ -269,6 +321,8 @@ class __$$CarpoolImplCopyWithImpl<$Res>
     Object? returningDate = freezed,
     Object? returningTime = freezed,
     Object? creator = freezed,
+    Object? resort = freezed,
+    Object? conversation = freezed,
   }) {
     return _then(
       _$CarpoolImpl(
@@ -352,6 +406,16 @@ class __$$CarpoolImplCopyWithImpl<$Res>
                 ? _value.creator
                 : creator // ignore: cast_nullable_to_non_nullable
                     as User?,
+        resort:
+            freezed == resort
+                ? _value.resort
+                : resort // ignore: cast_nullable_to_non_nullable
+                    as Resort?,
+        conversation:
+            freezed == conversation
+                ? _value.conversation
+                : conversation // ignore: cast_nullable_to_non_nullable
+                    as Conversation?,
       ),
     );
   }
@@ -377,6 +441,8 @@ class _$CarpoolImpl implements _Carpool {
     this.returningDate,
     this.returningTime,
     this.creator,
+    this.resort,
+    this.conversation,
   });
 
   factory _$CarpoolImpl.fromJson(Map<String, dynamic> json) =>
@@ -414,10 +480,14 @@ class _$CarpoolImpl implements _Carpool {
   final String? returningTime;
   @override
   final User? creator;
+  @override
+  final Resort? resort;
+  @override
+  final Conversation? conversation;
 
   @override
   String toString() {
-    return 'Carpool(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, meetupAddress: $meetupAddress, meetupCity: $meetupCity, meetupState: $meetupState, meetupZipCode: $meetupZipCode, createdBy: $createdBy, resortId: $resortId, departureDate: $departureDate, departureTime: $departureTime, returningDate: $returningDate, returningTime: $returningTime, creator: $creator)';
+    return 'Carpool(id: $id, createdAt: $createdAt, updatedAt: $updatedAt, name: $name, description: $description, meetupAddress: $meetupAddress, meetupCity: $meetupCity, meetupState: $meetupState, meetupZipCode: $meetupZipCode, createdBy: $createdBy, resortId: $resortId, departureDate: $departureDate, departureTime: $departureTime, returningDate: $returningDate, returningTime: $returningTime, creator: $creator, resort: $resort, conversation: $conversation)';
   }
 
   @override
@@ -453,7 +523,10 @@ class _$CarpoolImpl implements _Carpool {
                 other.returningDate == returningDate) &&
             (identical(other.returningTime, returningTime) ||
                 other.returningTime == returningTime) &&
-            (identical(other.creator, creator) || other.creator == creator));
+            (identical(other.creator, creator) || other.creator == creator) &&
+            (identical(other.resort, resort) || other.resort == resort) &&
+            (identical(other.conversation, conversation) ||
+                other.conversation == conversation));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -476,6 +549,8 @@ class _$CarpoolImpl implements _Carpool {
     returningDate,
     returningTime,
     creator,
+    resort,
+    conversation,
   );
 
   /// Create a copy of Carpool
@@ -510,6 +585,8 @@ abstract class _Carpool implements Carpool {
     final DateTime? returningDate,
     final String? returningTime,
     final User? creator,
+    final Resort? resort,
+    final Conversation? conversation,
   }) = _$CarpoolImpl;
 
   factory _Carpool.fromJson(Map<String, dynamic> json) = _$CarpoolImpl.fromJson;
@@ -546,6 +623,10 @@ abstract class _Carpool implements Carpool {
   String? get returningTime;
   @override
   User? get creator;
+  @override
+  Resort? get resort;
+  @override
+  Conversation? get conversation;
 
   /// Create a copy of Carpool
   /// with the given fields replaced by the non-null parameter values.

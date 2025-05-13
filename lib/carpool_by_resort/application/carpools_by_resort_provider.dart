@@ -16,3 +16,11 @@ final carpoolsProvider = Provider<CarpoolsRepository>((ref) {
   final apiClient = ref.watch(apiClientProvider);
   return CarpoolsRepository(apiClient: apiClient);
 });
+
+final carpoolWithConversation = FutureProvider.family<Carpool, Uuid>((
+  ref,
+  carpoolId,
+) async {
+  final carpoolsRepository = ref.watch(carpoolsProvider);
+  return await carpoolsRepository.getCarpoolWithConversation(carpoolId);
+});

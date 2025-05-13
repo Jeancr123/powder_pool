@@ -45,28 +45,41 @@ _$CarpoolImpl _$$CarpoolImplFromJson(Map<String, dynamic> json) =>
           json['creator'] == null
               ? null
               : User.fromJson(json['creator'] as Map<String, dynamic>),
+      resort:
+          json['resort'] == null
+              ? null
+              : Resort.fromJson(json['resort'] as Map<String, dynamic>),
+      conversation:
+          json['conversation'] == null
+              ? null
+              : Conversation.fromJson(
+                json['conversation'] as Map<String, dynamic>,
+              ),
     );
 
-Map<String, dynamic> _$$CarpoolImplToJson(_$CarpoolImpl instance) =>
-    <String, dynamic>{
-      if (instance.id?.toJson() case final value?) 'id': value,
-      if (instance.createdAt?.toIso8601String() case final value?)
-        'createdAt': value,
-      if (instance.updatedAt?.toIso8601String() case final value?)
-        'updatedAt': value,
-      if (instance.name case final value?) 'name': value,
-      if (instance.description case final value?) 'description': value,
-      if (instance.meetupAddress case final value?) 'meetupAddress': value,
-      if (instance.meetupCity case final value?) 'meetupCity': value,
-      if (instance.meetupState case final value?) 'meetupState': value,
-      if (instance.meetupZipCode case final value?) 'meetupZipCode': value,
-      if (instance.createdBy?.toJson() case final value?) 'createdBy': value,
-      if (instance.resortId?.toJson() case final value?) 'resortId': value,
-      if (instance.departureDate?.toIso8601String() case final value?)
-        'departureDate': value,
-      if (instance.departureTime case final value?) 'departureTime': value,
-      if (instance.returningDate?.toIso8601String() case final value?)
-        'returningDate': value,
-      if (instance.returningTime case final value?) 'returningTime': value,
-      if (instance.creator?.toJson() case final value?) 'creator': value,
-    };
+Map<String, dynamic> _$$CarpoolImplToJson(
+  _$CarpoolImpl instance,
+) => <String, dynamic>{
+  if (instance.id?.toJson() case final value?) 'id': value,
+  if (instance.createdAt?.toIso8601String() case final value?)
+    'createdAt': value,
+  if (instance.updatedAt?.toIso8601String() case final value?)
+    'updatedAt': value,
+  if (instance.name case final value?) 'name': value,
+  if (instance.description case final value?) 'description': value,
+  if (instance.meetupAddress case final value?) 'meetupAddress': value,
+  if (instance.meetupCity case final value?) 'meetupCity': value,
+  if (instance.meetupState case final value?) 'meetupState': value,
+  if (instance.meetupZipCode case final value?) 'meetupZipCode': value,
+  if (instance.createdBy?.toJson() case final value?) 'createdBy': value,
+  if (instance.resortId?.toJson() case final value?) 'resortId': value,
+  if (instance.departureDate?.toIso8601String() case final value?)
+    'departureDate': value,
+  if (instance.departureTime case final value?) 'departureTime': value,
+  if (instance.returningDate?.toIso8601String() case final value?)
+    'returningDate': value,
+  if (instance.returningTime case final value?) 'returningTime': value,
+  if (instance.creator?.toJson() case final value?) 'creator': value,
+  if (instance.resort?.toJson() case final value?) 'resort': value,
+  if (instance.conversation?.toJson() case final value?) 'conversation': value,
+};

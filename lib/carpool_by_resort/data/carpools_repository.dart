@@ -19,12 +19,22 @@ class CarpoolsRepository {
   }
 
   Future<List<Carpool>> getCarpoolsByResortId(Uuid resortId) async {
-    final response = await apiClient.authenticatedGet('/get_carpools_by_resort/$resortId');
+    final response = await apiClient.authenticatedGet(
+      '/get_carpools_by_resort/$resortId',
+    );
     var carpoolsJson = response['data'] as List;
     List<Carpool> carpools = [];
     for (var carpoolJson in carpoolsJson) {
       carpools.add(Carpool.fromJson(carpoolJson));
     }
     return carpools;
+  }
+
+  Future<Carpool> getCarpoolWithConversation(Uuid carpoolId) async {
+    final response = await apiClient.authenticatedGet(
+      '/get_conversation_by_carpool/${carpoolId.toString()}',
+    );
+    var carpoolJson = response['data'];
+    return Carpool.fromJson(carpoolJson);
   }
 }

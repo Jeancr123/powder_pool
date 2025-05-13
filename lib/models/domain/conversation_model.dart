@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:powder_pool/models/carpool_model.dart';
 import 'package:powder_pool/models/domain/json.dart';
 import 'package:powder_pool/models/domain/uuid.dart';
 part 'conversation_model.freezed.dart';
@@ -11,6 +12,7 @@ class Conversation with _$Conversation {
     DateTime? createdAt,
     DateTime? updatedAt,
     Uuid? carpoolId,
+    Carpool? carpool,
   }) = _Conversation;
 
   factory Conversation.fromJson(Json json) => _$ConversationFromJson(json);
